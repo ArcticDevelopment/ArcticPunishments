@@ -1,0 +1,12 @@
+name: ArcticPunishments
+author: Kyro
+version: 1.0
+main: dev.kyro.arcticpunishments.ArcticPunishments
+description: Staff tool for punishing players
+depend:
+  - LiteBans
+commands:
+  punish:
+  p:
+  unpunish:
+  unp:
