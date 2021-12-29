@@ -44,7 +44,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack spamMute = new AItemStackBuilder(Material.SUGAR)
 				.setName("&f&lSPAMMING")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is excessively sending messages in chat.", "", "&7- &eSending messages too quickly", "&7- &eAdvertising"
 				))
 				.getItemStack();
 		getInventory().setItem(12, spamMute);
@@ -52,7 +52,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack disrespectMute = new AItemStackBuilder(Material.RAW_FISH, 1, 3)
 				.setName("&e&lRACISM/DISRESPECT")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is discriminating another player.", "", "&7- &eExcessive toxicity", "&7- &eRudely saying something of another player.", "&7- &eRacist/Homophobic behavior"
 				))
 				.getItemStack();
 		getInventory().setItem(13, disrespectMute);
@@ -60,7 +60,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack maliciousMute = new AItemStackBuilder(Material.TNT)
 				.setName("&c&lMALICIOUS ACTIONS")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is attempting to harm other players.", "", "&7- &eAttempting to scam players", "&7- &eSpreading malicious software", "&7- &eDDoS threat/Leaking private information"
 				))
 				.getItemStack();
 		getInventory().setItem(14, maliciousMute);
@@ -68,7 +68,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack evadingMute = new AItemStackBuilder(Material.SKULL_ITEM, 1, 0)
 				.setName("&7&lEVADING MUTE")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is bypassing a previous mute.", "", "&7- &eTalking on another account while muted"
 				))
 				.getItemStack();
 		getInventory().setItem(16, evadingMute);
@@ -88,7 +88,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack cheatingBan = new AItemStackBuilder(Material.DIAMOND_SWORD)
 				.setName("&b&lCHEATING")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Playing is obtaining an advantage by cheating.", "", "&7- &ePlayer is using blacklisted modifications", "&7- &ePlayer has flagged the Anti-Cheat"
 				))
 				.getItemStack();
 		getInventory().setItem(30, cheatingBan);
@@ -96,7 +96,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack screenshareBan = new AItemStackBuilder(Material.EYE_OF_ENDER)
 				.setName("&a&lSCREENSHARE")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Click to view Screenshare options."
 				))
 				.getItemStack();
 		getInventory().setItem(31, screenshareBan);
@@ -104,7 +104,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack boostingBan = new AItemStackBuilder(Material.INK_SACK, 1, 15)
 				.setName("&f&lBOOSTING")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is improving stats through boosting.", "", "&7- &ePlayer is feeding kills to another player", "&7- &ePlayer is being feed kills by another player"
 				))
 				.getItemStack();
 		getInventory().setItem(32, boostingBan);
@@ -112,7 +112,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack compromiseBan = new AItemStackBuilder(Material.MONSTER_EGG, 1, 50)
 				.setName("&7&lCOMPROMISED ACCOUNT")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is using a compromised account.", "", "&7- &eAccount is clearly an NFA, or SFA", "&7- &ePlayer's account is being used by another person"
 				))
 				.getItemStack();
 		getInventory().setItem(33, compromiseBan);
@@ -120,7 +120,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack evadingBan = new AItemStackBuilder(Material.SKULL_ITEM, 1, 1)
 				.setName("&8&lEVADING BAN")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player is evading a previous ban.", "", "&7- &ePlayer has banned accounts on their IP", "&7- &ePlayer is using an alt while banned"
 				))
 				.getItemStack();
 		getInventory().setItem(34, evadingBan);

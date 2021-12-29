@@ -32,7 +32,7 @@ public class ScreensharePanel extends AGUIPanel {
 		ItemStack logoutBan = new AItemStackBuilder(Material.ICE)
 				.setName("&9&lLOGGING OUT")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player has logged out while frozen."
 				))
 				.getItemStack();
 		getInventory().setItem(10, logoutBan);
@@ -40,7 +40,7 @@ public class ScreensharePanel extends AGUIPanel {
 		ItemStack admitBan = new AItemStackBuilder(Material.BEACON)
 				.setName("&b&lADMITTING")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Player admitted to cheating while frozen."
 				))
 				.getItemStack();
 		getInventory().setItem(13, admitBan);
@@ -48,7 +48,7 @@ public class ScreensharePanel extends AGUIPanel {
 		ItemStack foundBan = new AItemStackBuilder(Material.ANVIL)
 				.setName("&7&lBLACKLISTED MODIFICATIONS FOUND")
 				.setLore(new ALoreBuilder(
-						""
+						"&7Blacklisted modifications found in Screenshare."
 				))
 				.getItemStack();
 		getInventory().setItem(16, foundBan);
