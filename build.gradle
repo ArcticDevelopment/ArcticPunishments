@@ -18,7 +18,7 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
-    compile 'com.github.ArcticDevelopment:ArcticAPI:58f072ee22'
+    compile 'com.github.ArcticDevelopment:ArcticAPI:b3172a60bd'
     compileOnly 'com.gitlab.ruany:LiteBansAPI:0.3.5'
 }
 
