@@ -51,40 +51,26 @@ public class PunishManager implements Listener {
 		switch(punishmentType) {
 			case BAN:
 				playerData.set("bans", playerData.getInt("bans") + 1);
-				switch(bans) {
-					case 0:
-						punishmentString += "14d ";
-						break;
-					case 1:
-						punishmentString += "30d ";
-						break;
-					case 2:
-						punishmentString += "90d ";
-						break;
-					default:
-						punishmentString += "";
+				if(bans == 0) {
+					punishmentString += "14d ";
+				} else if(bans == 1 || bans == 2) {
+					punishmentString += "30d ";
+				} else if(bans > 2) {
+					punishmentString += "90d ";
 				}
 				break;
 			case MUTE:
 				playerData.set("mutes", playerData.getInt("mutes") + 1);
-				switch(mutes) {
-					case -1:
-						punishmentString += "7d ";
-						break;
-					case 1:
-						punishmentString += "1h ";
-						break;
-					case 2:
-						punishmentString += "1d ";
-						break;
-					case 3:
-						punishmentString += "7d ";
-						break;
-					case 4:
-						punishmentString += "30d ";
-						break;
-					default:
-						punishmentString += "90d ";
+				if(mutes == -1) {
+					punishmentString += "7d ";
+				} else if(mutes == 1) {
+					punishmentString += "1d ";
+				} else if(mutes == 2) {
+					punishmentString += "4d ";
+				} else if(mutes == 3) {
+					punishmentString += "7d ";
+				} else if(mutes > 3) {
+					punishmentString += "14d ";
 				}
 				break;
 			case WARN:
