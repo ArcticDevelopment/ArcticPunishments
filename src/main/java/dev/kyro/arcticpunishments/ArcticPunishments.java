@@ -3,6 +3,7 @@ package dev.kyro.arcticpunishments;
 import dev.kyro.arcticapi.ArcticAPI;
 import dev.kyro.arcticapi.data.AConfig;
 import dev.kyro.arcticapi.data.APlayerData;
+import dev.kyro.arcticpunishments.commands.MigrateCommand;
 import dev.kyro.arcticpunishments.commands.PunishCommand;
 import dev.kyro.arcticpunishments.commands.UnpunishCommand;
 import dev.kyro.arcticpunishments.controllers.PunishManager;
@@ -24,6 +25,7 @@ public class ArcticPunishments extends JavaPlugin {
 		UnpunishCommand unpunishCommand = new UnpunishCommand();
 		getCommand("unpunish").setExecutor(unpunishCommand);
 		getCommand("unp").setExecutor(unpunishCommand);
+		getCommand("punishmigrate").setExecutor(new MigrateCommand());
 
 		getServer().getPluginManager().registerEvents(new PunishManager(), this);
 	}

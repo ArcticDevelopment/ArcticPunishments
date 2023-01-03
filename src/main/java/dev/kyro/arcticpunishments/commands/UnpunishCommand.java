@@ -1,9 +1,8 @@
 package dev.kyro.arcticpunishments.commands;
 
-import dev.kyro.arcticapi.data.APlayer;
-import dev.kyro.arcticapi.data.APlayerData;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.ASound;
+import dev.kyro.arcticpunishments.controllers.PunishProfile;
 import dev.kyro.arcticpunishments.enums.PermissionLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -11,8 +10,9 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class UnpunishCommand implements CommandExecutor {
 
@@ -35,45 +35,53 @@ public class UnpunishCommand implements CommandExecutor {
 			return false;
 		}
 
-		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-		if(offlinePlayer == null) {
+		UUID uuid = null;
+		try {
+			uuid = UUID.fromString(args[0]);
+		} catch(Exception e) {
+			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
+			if(offlinePlayer != null) {
+				uuid = offlinePlayer.getUniqueId();
+			}
+		}
+
+		if(uuid == null) {
 			AOutput.error(player, "Could not find that player");
 			return false;
 		}
 
-		APlayer aPlayer = APlayerData.getPlayerData(offlinePlayer);
-		FileConfiguration playerData = aPlayer.playerData;
+		PunishProfile profile = new PunishProfile(uuid);
 
 		String arg = args[1].toLowerCase();
 		if(arg.equals("ban") || arg.equals("bans")) {
-			if(playerData.getInt("bans") == 0) {
+			if(profile.getBans() == 0) {
 				AOutput.error(player, "That player does not have any bans");
 				return false;
 			}
 			ASound.play(player, Sound.LEVEL_UP, 1, 1);
-			playerData.set("bans", playerData.getInt("bans") - 1);
-			AOutput.send(player, "Removed a ban from &e" + offlinePlayer.getName());
+			profile.setBans(profile.getBans() - 1);
+			AOutput.send(player, "Removed a ban from &e" + profile.getName());
 		} else if(arg.equals("mute") || arg.equals("mutes")) {
-			if(playerData.getInt("mutes") == 0) {
+			if(profile.getMutes() == 0) {
 				AOutput.error(player, "That player does not have any mutes");
 				return false;
 			}
-			playerData.set("mutes", playerData.getInt("mutes") - 1);
+			profile.setMutes(profile.getMutes() - 1);
 			ASound.play(player, Sound.LEVEL_UP, 1, 1);
-			AOutput.send(player, "Removed a mute from &e" + offlinePlayer.getName());
+			AOutput.send(player, "Removed a mute from &e" + profile.getName());
 		} else if(arg.equals("malice")) {
-			if(!playerData.getBoolean("malice")) {
+			if(!profile.getMalice()) {
 				AOutput.error(player, "That player has not performed a malicious action");
 				return false;
 			}
-			playerData.set("malice", false);
+			profile.setMalice(false);
 			ASound.play(player, Sound.LEVEL_UP, 1, 1);
-			AOutput.send(player, "Removed malice from &e" + offlinePlayer.getName());
+			AOutput.send(player, "Removed malice from &e" + profile.getName());
 		} else {
 			AOutput.error(player, "Usage: /unpunish <player/uuid> <ban/mute/malice> (removes 1/resets it NO CONFIRM)");
 			return false;
 		}
-		aPlayer.save();
+		profile.save();
 		return false;
 	}
 }

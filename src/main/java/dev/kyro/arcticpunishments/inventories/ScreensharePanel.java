@@ -56,7 +56,7 @@ public class ScreensharePanel extends AGUIPanel {
 
 	@Override
 	public String getName() {
-		return ChatColor.GRAY + "Screenshare Punish " + ChatColor.YELLOW + ((PunishGUI) gui).target.getName();
+		return ChatColor.GRAY + "Screenshare Punish " + ChatColor.YELLOW + ((PunishGUI) gui).profile.getName();
 	}
 
 	@Override

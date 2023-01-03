@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class PunishCommand implements CommandExecutor {
 
 	@Override
@@ -22,7 +24,8 @@ public class PunishCommand implements CommandExecutor {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					PunishManager.punish(sender, Bukkit.getOfflinePlayer(args[0]), PunishmentReason.CHEATING);
+					OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
+					PunishManager.punish(sender, offlinePlayer.getUniqueId(), PunishmentReason.CHEATING);
 				}
 			}.runTaskAsynchronously(ArcticPunishments.INSTANCE);
 			return false;
@@ -39,18 +42,28 @@ public class PunishCommand implements CommandExecutor {
 			return false;
 		}
 
-		OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-		if(offlinePlayer == null) {
+		UUID uuid = null;
+
+		try {
+			uuid = UUID.fromString(args[0]);
+		} catch(Exception e) {
+			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
+			if(offlinePlayer != null) {
+				uuid = offlinePlayer.getUniqueId();
+			}
+		}
+
+		if(uuid == null) {
 			AOutput.error(player, "Could not find that player");
 			return false;
 		}
 
-		if(offlinePlayer.getUniqueId().equals(player.getUniqueId())) {
+		if(uuid.equals(player.getUniqueId())) {
 			AOutput.error(player, "You cannot punish yourself");
 			return false;
 		}
 
-		new PunishGUI(player, offlinePlayer).open();
+		new PunishGUI(player, uuid).open();
 
 		return false;
 	}

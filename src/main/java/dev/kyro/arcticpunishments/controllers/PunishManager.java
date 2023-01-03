@@ -13,21 +13,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class PunishManager implements Listener {
 
-	public static void punish(CommandSender sender, OfflinePlayer target, PunishmentReason punishmentReason) {
-		APlayer aPlayer = APlayerData.getPlayerData(target);
-		FileConfiguration playerData = aPlayer.playerData;
-		int bans = playerData.getInt("bans");
-		int mutes = playerData.getInt("mutes");
-		boolean hasPerformedMaliciousAction = playerData.getBoolean("malice");
+	public static void punish(CommandSender sender, UUID target, PunishmentReason punishmentReason) {
+		PunishProfile profile = new PunishProfile(target);
+		int bans = profile.getBans();
+		int mutes = profile.getMutes();
+		boolean hasPerformedMaliciousAction = profile.getMalice();
 
 		PunishmentType punishmentType = punishmentReason.punishmentType;
 		if(punishmentReason == PunishmentReason.MALICIOUS_ACTIONS) {
 			if(hasPerformedMaliciousAction) {
 				punishmentType = PunishmentType.BAN;
 			} else {
-				playerData.set("malice", true);
+				profile.setMalice(true);
 				mutes = -1;
 			}
 		}
@@ -45,12 +46,12 @@ public class PunishManager implements Listener {
 		}
 
 		if(punishmentType == PunishmentType.MUTE && mutes == 0) punishmentType = PunishmentType.WARN;
-		String punishmentString = punishmentType.getCommand() + " " + target.getName() + " ";
+		String punishmentString = punishmentType.getCommand() + " " + profile.getName() + " ";
 		if(sender instanceof Player) punishmentString += "--sender=" + sender.getName() + " ";
 
 		switch(punishmentType) {
 			case BAN:
-				playerData.set("bans", playerData.getInt("bans") + 1);
+				profile.setBans(profile.getBans() + 1);
 				if(bans == 0) {
 					punishmentString += "14d ";
 				} else if(bans == 1 || bans == 2) {
@@ -60,7 +61,7 @@ public class PunishManager implements Listener {
 				}
 				break;
 			case MUTE:
-				playerData.set("mutes", playerData.getInt("mutes") + 1);
+				profile.setMutes(profile.getMutes() + 1);
 				if(mutes == -1) {
 					punishmentString += "7d ";
 				} else if(mutes == 1) {
@@ -74,7 +75,7 @@ public class PunishManager implements Listener {
 				}
 				break;
 			case WARN:
-				playerData.set("mutes", playerData.getInt("mutes") + 1);
+				profile.setMutes(profile.getMutes() + 1);
 		}
 
 		punishmentString += punishmentReason.reason + " -s";
@@ -86,6 +87,6 @@ public class PunishManager implements Listener {
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalPunishmentString);
 			}
 		}.runTask(ArcticPunishments.INSTANCE);
-		aPlayer.save();
+		profile.save();
 	}
 }

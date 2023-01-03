@@ -10,3 +10,4 @@ commands:
   p:
   unpunish:
   unp:
+  punishmigrate:

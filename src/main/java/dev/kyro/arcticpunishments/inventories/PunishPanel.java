@@ -8,6 +8,7 @@ import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticapi.gui.AGUIPanel;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.ASound;
+import dev.kyro.arcticpunishments.controllers.PunishProfile;
 import dev.kyro.arcticpunishments.enums.PermissionLevel;
 import dev.kyro.arcticpunishments.enums.PunishmentReason;
 import org.bukkit.ChatColor;
@@ -26,17 +27,14 @@ public class PunishPanel extends AGUIPanel {
 		super(gui);
 		punishGUI = (PunishGUI) gui;
 
-		APlayer aPlayer = APlayerData.getPlayerData(punishGUI.target);
-		FileConfiguration playerData = aPlayer.playerData;
-
 		inventoryBuilder.createBorder(Material.STAINED_GLASS_PANE, 0)
 				.setSlots(Material.STAINED_GLASS_PANE, 0, 11, 19, 20, 21, 22, 23, 24, 25, 29);
 
 		ItemStack muteInfo = new AItemStackBuilder(Material.BOOK)
 				.setName("&6&lMUTE INFORMATION")
 				.setLore(new ALoreBuilder(
-						"&e" + punishGUI.target.getName() + " &7has &6" + playerData.getInt("mutes") + " &7mutes",
-						"&7Malice: " + (playerData.getBoolean("malice") ? "&eYes" : "&eNo")
+						"&e" + punishGUI.profile.getName() + " &7has &6" + punishGUI.profile.getMutes() + " &7mutes",
+						"&7Malice: " + (punishGUI.profile.getMalice() ? "&eYes" : "&eNo")
 				))
 				.getItemStack();
 		getInventory().setItem(10, muteInfo);
@@ -80,7 +78,7 @@ public class PunishPanel extends AGUIPanel {
 		ItemStack banInfo = new AItemStackBuilder(Material.BOOK)
 				.setName("&6&lBAN INFORMATION")
 				.setLore(new ALoreBuilder(
-						"&e" + punishGUI.target.getName() + " &7has &6" + playerData.getInt("bans") + " &7bans"
+						"&e" + punishGUI.profile.getName() + " &7has &6" + punishGUI.profile.getBans() + " &7bans"
 				))
 				.getItemStack();
 		getInventory().setItem(28, banInfo);
@@ -128,7 +126,7 @@ public class PunishPanel extends AGUIPanel {
 
 	@Override
 	public String getName() {
-		return ChatColor.GRAY + "Punish " + ChatColor.YELLOW + ((PunishGUI) gui).target.getName();
+		return ChatColor.GRAY + "Punish " + ChatColor.YELLOW + ((PunishGUI) gui).profile.getName();
 	}
 
 	@Override

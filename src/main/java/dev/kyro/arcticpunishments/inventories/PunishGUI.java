@@ -3,6 +3,7 @@ package dev.kyro.arcticpunishments.inventories;
 import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticpunishments.ArcticPunishments;
 import dev.kyro.arcticpunishments.controllers.PunishManager;
+import dev.kyro.arcticpunishments.controllers.PunishProfile;
 import dev.kyro.arcticpunishments.enums.PermissionLevel;
 import dev.kyro.arcticpunishments.enums.PunishmentReason;
 import org.bukkit.OfflinePlayer;
@@ -13,18 +14,17 @@ import java.util.UUID;
 
 public class PunishGUI extends AGUI {
 	public UUID targetUUID;
-	public OfflinePlayer target;
 	public PermissionLevel permissionLevel;
-
 	public PunishPanel punishPanel;
 	public ScreensharePanel screensharePanel;
+	public PunishProfile profile;
 
-	public PunishGUI(Player player, OfflinePlayer target) {
+	public PunishGUI(Player player, UUID target) {
 		super(player);
-		this.targetUUID = target.getUniqueId();
-		this.target = target;
-		this.permissionLevel = PermissionLevel.getPermissionLevel(player);
+		this.targetUUID = target;
+		this.profile = new PunishProfile(targetUUID);
 
+		this.permissionLevel = PermissionLevel.getPermissionLevel(player);
 		this.punishPanel = new PunishPanel(this);
 		this.screensharePanel = new ScreensharePanel(this);
 
@@ -35,7 +35,7 @@ public class PunishGUI extends AGUI {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				PunishManager.punish(player, target, reason);
+				PunishManager.punish(player, targetUUID, reason);
 			}
 		}.runTaskAsynchronously(ArcticPunishments.INSTANCE);
 	}
