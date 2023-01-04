@@ -13,6 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
 public class PunishManager implements Listener {
@@ -88,5 +92,29 @@ public class PunishManager implements Listener {
 			}
 		}.runTask(ArcticPunishments.INSTANCE);
 		profile.save();
+	}
+
+	public static UUID getUUID(String username) {
+		Connection connection = PunishProfile.getConnection();
+
+		try {
+			String sql = "SELECT uuid FROM " + PunishProfile.INFO_TABLE + " WHERE username = ?";
+			assert connection != null;
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, username);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				return UUID.fromString(rs.getString("uuid"));
+			} else return null;
+		} catch(SQLException throwables) {
+			throwables.printStackTrace();
+		}
+
+		try {
+			connection.close();
+		} catch(SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return null;
 	}
 }

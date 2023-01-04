@@ -42,15 +42,12 @@ public class PunishCommand implements CommandExecutor {
 			return false;
 		}
 
-		UUID uuid = null;
+		UUID uuid;
 
 		try {
 			uuid = UUID.fromString(args[0]);
 		} catch(Exception e) {
-			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-			if(offlinePlayer != null) {
-				uuid = offlinePlayer.getUniqueId();
-			}
+			uuid = PunishManager.getUUID(args[0]);
 		}
 
 		if(uuid == null) {

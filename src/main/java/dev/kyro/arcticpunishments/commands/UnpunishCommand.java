@@ -2,6 +2,7 @@ package dev.kyro.arcticpunishments.commands;
 
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.ASound;
+import dev.kyro.arcticpunishments.controllers.PunishManager;
 import dev.kyro.arcticpunishments.controllers.PunishProfile;
 import dev.kyro.arcticpunishments.enums.PermissionLevel;
 import org.bukkit.Bukkit;
@@ -35,14 +36,12 @@ public class UnpunishCommand implements CommandExecutor {
 			return false;
 		}
 
-		UUID uuid = null;
+		UUID uuid;
+
 		try {
 			uuid = UUID.fromString(args[0]);
 		} catch(Exception e) {
-			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-			if(offlinePlayer != null) {
-				uuid = offlinePlayer.getUniqueId();
-			}
+			uuid = PunishManager.getUUID(args[0]);
 		}
 
 		if(uuid == null) {
