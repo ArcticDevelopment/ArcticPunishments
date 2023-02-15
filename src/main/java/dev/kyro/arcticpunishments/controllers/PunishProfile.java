@@ -65,7 +65,9 @@ public class PunishProfile {
 			String username = "***REMOVED***";
 			String password = "***REMOVED***";
 			return DriverManager.getConnection(dbUrl, username, password);
-		} catch(Exception ignored) {} ;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

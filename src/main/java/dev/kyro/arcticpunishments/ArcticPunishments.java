@@ -7,6 +7,7 @@ import dev.kyro.arcticpunishments.commands.MigrateCommand;
 import dev.kyro.arcticpunishments.commands.PunishCommand;
 import dev.kyro.arcticpunishments.commands.UnpunishCommand;
 import dev.kyro.arcticpunishments.controllers.PunishManager;
+import dev.kyro.arcticpunishments.controllers.PunishProfile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArcticPunishments extends JavaPlugin {
