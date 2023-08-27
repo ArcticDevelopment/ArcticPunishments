@@ -26,7 +26,6 @@ public class ArcticPunishments extends JavaPlugin {
 		UnpunishCommand unpunishCommand = new UnpunishCommand();
 		getCommand("unpunish").setExecutor(unpunishCommand);
 		getCommand("unp").setExecutor(unpunishCommand);
-//		getCommand("punishmigrate").setExecutor(new MigrateCommand());
 
 		getServer().getPluginManager().registerEvents(new PunishManager(), this);
 	}
