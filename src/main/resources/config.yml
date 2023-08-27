@@ -1,2 +1,5 @@
 prefix: "&7"
 error-prefix: "&c"
+sql-url: ""
+sql-username: ""
+sql-password: ""

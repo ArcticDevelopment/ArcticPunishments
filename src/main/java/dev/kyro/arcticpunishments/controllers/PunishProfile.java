@@ -1,5 +1,7 @@
 package dev.kyro.arcticpunishments.controllers;
 
+import dev.kyro.arcticapi.data.AConfig;
+
 import java.sql.*;
 import java.util.UUID;
 
@@ -61,9 +63,9 @@ public class PunishProfile {
 	public static Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String dbUrl = "***REMOVED***";
-			String username = "***REMOVED***";
-			String password = "***REMOVED***";
+			String dbUrl = AConfig.getString("sql-url");
+			String username = AConfig.getString("sql-username");
+			String password = AConfig.getString("sql-password");
 			return DriverManager.getConnection(dbUrl, username, password);
 		} catch(Exception e) {
 			e.printStackTrace();
